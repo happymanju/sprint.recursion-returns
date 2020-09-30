@@ -32,14 +32,14 @@ class RobotPaths {
     let successfulPaths = 0;
 
     function walk(row, col, board, size){
-      if(row > (size-1) || col > (size-1)){
+      if(row > (size-1) || col > (size-1) || row < 0 || col < 0){
         return;
       }
 
       board.togglePiece(row,col);
 
       
-      if(board[row+1][col] === board[-1][-1] || board[row][col+1] === board[-1][-1]){
+      if(board.board[row+1][col] === board.board[size-1][size-1] || board.board[row][col+1] === board.board[size-1][size-1]){
         successfulPaths += 1;
         return;
       }
