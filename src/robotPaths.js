@@ -25,20 +25,21 @@ class RobotPaths {
     this.board = new Board(size);
     this.row = 0;
     this.col = 0;
+    this.size = size;
   }
 
-  solve(row, col) {
+  solve() {
     let successfulPaths = 0;
 
-    function walk(row, col){
-      if(row > this.board.length-1 || col > this.board.length-1){
+    function walk(row, col, board, size){
+      if(row > (size-1) || col > (size-1)){
         return;
       }
-      
-      this.board.togglePiece(row,col);
+
+      board.togglePiece(row,col);
 
       
-      if(this.board[row+1][col] === this.board[-1][-1] || this.board[row][col+1] === this.board[-1][-1]){
+      if(board[row+1][col] === board[-1][-1] || board[row][col+1] === board[-1][-1]){
         successfulPaths += 1;
         return;
       }
@@ -49,13 +50,13 @@ class RobotPaths {
       }
 
 
-      this.board.togglePiece(row,col);
+      board.togglePiece(row,col);
       
 
 
     }
 
-    walk(row, col)
+    walk(this.row, this.col, this.board, this.size)
     return successfulPaths;
   }
 }
