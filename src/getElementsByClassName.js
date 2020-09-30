@@ -1,16 +1,22 @@
 const getElementsByClassName = (targetClassName) => {
   const element = [];
-  function findClass(htmlString) {
-    let children = htmlString.children;
 
-    if (children === undefined) {
+  function findClass(node = document.body) {
+    let children = node.children;
+
+    if (children === null) {
       return;
     }
-    if (htmlString.className === targetClassName) {
-      element.push(htmlString);
+    if (node.className.includes(targetClassName)) {
+      element.push(node);
     }
-    for (let i = 0; i < children.length; i++) return findClass();
+    for (let element of children) {
+      findClass(element);
+    }
   }
+
+  findClass();
+  return element;
 };
 
 module.exports = { getElementsByClassName };
