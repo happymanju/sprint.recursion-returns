@@ -27,43 +27,23 @@ class RobotPaths {
     this.col = 0;
   }
 
-  solve(row, column) {
+  solve(row, col) {
     let successfulPaths = 0;
-    //let board = this.board
-    let possibleMoves = [];
 
-    if (row > this.board.length - 1 || column > this.board.length - 1) {
-      return;
+    function walk(row, col){
+      this.board.togglePiece(row,col);
+      if(this.board[row+1][col] === this.board[-1][-1] || this.board[row][col+1] === this.board[-1][-1]){
+        successfulPaths += 1;
+        return;
+      }
+
+      this.board.togglePiece(row,col);
+      
+
+
     }
 
-    if (row === this.board.length - 1 && col === this.board.length - 1) {
-      //stop case
-      successfulPaths += 1;
-      return;
-    }
-
-    this.board.togglePiece(row, column);
-
-    if (this.board.hasBeenVisited(row + 1, column) === false) {
-      possibleMoves.push([row + 1, column]);
-    }
-
-    if (this.board.hasBeenVisited(row, column + 1) === false) {
-      possibleMoves.push([row, column + 1]);
-    }
-    if (this.board.hasBeenVisited(row - 1, column) === false) {
-      possibleMoves.push([row - 1, column]);
-    }
-    if (this.board.hasBeenVisited(row, column - 1) === false) {
-      possibleMoves.push([row, column - 1]);
-    }
-
-    for (let coordinate of possibleMoves) {
-      //recursive case
-      solve(coordinate[0], coordinate[1]);
-    }
-
-    solve(this.row, this.column);
+    walk(row, col)
     return successfulPaths;
   }
 }
