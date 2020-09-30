@@ -25,21 +25,26 @@ class RobotPaths {
     this.board = new Board(size);
     this.row = 0;
     this.col = 0;
-    this.size = size;
+    this.boardLimit = size - 1;
   }
 
   solve() {
     let successfulPaths = 0;
 
     function walk(row, col, board, size){
-      if(row > (size-1) || col > (size-1) || row < 0 || col < 0){
+      if(row > (size) || col > (size) || row < 0 || col < 0){
+        return;
+      }
+
+      if(board.togglePiece(row,col)){
         return;
       }
 
       board.togglePiece(row,col);
 
       
-      if(board.board[row+1][col] === board.board[size-1][size-1] || board.board[row][col+1] === board.board[size-1][size-1]){
+      if(row === size && col === size){
+        board.togglePiece(row, col)
         successfulPaths += 1;
         return;
       }
@@ -56,7 +61,7 @@ class RobotPaths {
 
     }
 
-    walk(this.row, this.col, this.board, this.size)
+    walk(this.row, this.col, this.board, this.boardLimit)
     return successfulPaths;
   }
 }
