@@ -31,11 +31,23 @@ class RobotPaths {
     let successfulPaths = 0;
 
     function walk(row, col){
+      if(row > this.board.length-1 || col > this.board.length-1){
+        return;
+      }
+      
       this.board.togglePiece(row,col);
+
+      
       if(this.board[row+1][col] === this.board[-1][-1] || this.board[row][col+1] === this.board[-1][-1]){
         successfulPaths += 1;
         return;
       }
+
+      let nextMoves = [[row+1, col],[row-1,col],[row,col+1],[row,col-1]];
+      for(let coordinate of nextMoves){
+        walk(coordinate[0],coordinate[1]);
+      }
+
 
       this.board.togglePiece(row,col);
       
