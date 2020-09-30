@@ -40,22 +40,22 @@ class RobotPaths {
         return;
       }
 
-      board.togglePiece(row,col);
-
-      
-      if(row === size && col === size){
-        board.togglePiece(row, col)
+      if(row === size || col === size){
         successfulPaths += 1;
         return;
       }
 
+      board.togglePiece(row,col);
+
+
       let nextMoves = [[row+1, col],[row-1,col],[row,col+1],[row,col-1]];
       for(let coordinate of nextMoves){
-        walk(coordinate[0],coordinate[1]);
+        walk(coordinate[0], coordinate[1], board, size);
       }
 
 
       board.togglePiece(row,col);
+      return;
       
 
 
